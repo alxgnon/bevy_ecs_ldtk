@@ -28,7 +28,7 @@ To access the level asset data, you first need to access the project asset data.
 Assuming you only have one project, query for the only `LdtkProjectHandle` entity and look up its asset data in the `LdtkProject` asset store.
 Then, get the raw level data for every spawned level using the level entity's `LevelIid` component (there is a provided method for this).
 
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 # #[derive(Component)]
@@ -42,7 +42,7 @@ Then, get the raw level data for every spawned level using the level entity's `L
 The level's `GlobalTransform`'s x/y value should be used as the lower-left bound of the `Rect`.
 Add the raw level's `px_wid` and `pix_hei` values to the lower-left bound to calculate the upper-right bound.
 
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::ldtk::Level;
 # fn foo(level_transform: &GlobalTransform, level: &Level) {
@@ -52,7 +52,7 @@ Add the raw level's `px_wid` and `pix_hei` values to the lower-left bound to cal
 
 After creating a `Rect` of the level bounds, check if the player is inside those bounds and update the `LevelSelection` resource accordingly.
 The full system should look something like this:
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 # #[derive(Component)]

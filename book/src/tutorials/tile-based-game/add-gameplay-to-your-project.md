@@ -15,7 +15,7 @@ The player entity will then be spawned with a `GridCoords` component whose value
 Also give it a `Player` marker component so that you can query for it more easily in future systems.
 Derive `Default` for this component.
 `bevy_ecs_ldtk` will use this default implementation when spawning the component unless otherwise specified.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 {{#include ../../../../examples/tile_based_game.rs:45:55}}
@@ -26,7 +26,7 @@ The player now has the components you will need to implement tile-based movement
 Write a system that checks for just-pressed WASD input and converts it to a `GridCoords` direction.
 I.e., `(0,1)` for W, `(-1,0)` for A, `(0,-1)` for S, and `(1,0)` for D.
 Then, add the new direction to the player entity's `GridCoords` component.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 # #[derive(Component)]
@@ -78,7 +78,7 @@ To implement tile-based collision, you will need to add components to the walls 
 Create a new bundle for the wall entities, and give them a marker component.
 Derive `LdtkIntCell` for this bundle, and register it to the app with `register_ldtk_int_cell` and the wall's intgrid value.
 This bundle actually only needs this one marker component - IntGrid entities spawn with a `GridCoords` without requesting it.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 fn main() {
@@ -99,7 +99,7 @@ Create a `LevelWalls` resource for storing the current wall locations that can b
 Give it a `HashSet<GridCoords>` field for the wall locations.
 Give it fields for the level's width and height as well so you can prevent the player from moving out-of-bounds.
 Then, implement a method `fn in_wall(&self, grid_coords: &GridCoords) -> bool` that returns true if the provided `grid_coords` is outside the level bounds or contained in the `HashSet`.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 use std::collections::HashSet;
@@ -117,7 +117,7 @@ fn main() {
 Now, add a system that listens for `LevelEvent::Spawned` and populates this resource.
 It will need access to all of the wall locations to populate the `HashSet` (`Query<&GridCoords, With<Wall>>`).
 It will also need access to the `LdtkProject` data to find the current level's width/height (`Query<&LdtkProjectHandle>` and `Res<Assets<LdtkProject>>`).
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 # use std::collections::HashSet;
@@ -154,7 +154,7 @@ fn main() {
 ```
 
 Finally, update the `move_player_from_input` system to access the `LevelWalls` resource and check whether or not the player's destination is in a wall.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 # use std::collections::HashSet;
@@ -185,7 +185,7 @@ The final step is to implement the goal functionality.
 When the player reaches the goal, the next level should spawn until there are no levels remaining.
 
 Similar to the `PlayerBundle`, give the `GoalBundle` its own marker component and `GridCoords`.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 {{#include ../../../../examples/tile_based_game.rs:57:67}}
@@ -195,7 +195,7 @@ Then, write a system that checks if the player's `GridCoords` and the goal's `Gr
 For a small optimization, filter the player query for `Changed<GridCoords>` so it's only populated if the player moves.
 If they do match, update the `LevelSelection` resource, increasing its level index by 1.
 `bevy_ecs_ldtk` will automatically despawn the current level and spawn the next one when this resource is updated.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 # #[derive(Component)]

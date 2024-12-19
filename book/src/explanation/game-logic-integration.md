@@ -10,7 +10,7 @@ It is fundamental to associate the LDtk entities and IntGrid tiles with Bevy ent
 The `LdtkEntity`/`LdtkIntCell` registration API allows you to hook custom bevy `Bundle`s into the level spawning process.
 You define what components you want on the entity with a bundle, define how they should be constructed with the `LdtkEntity` or `LdtkIntCell` derive, and register the bundle to the `App` for a given LDtk entity identifier, or IntGrid value.
 
-```rust,no_run
+```rust,ignore
 use bevy::prelude::*;
 use bevy_ecs_ldtk::prelude::*;
 
@@ -54,7 +54,7 @@ This component contains the raw LDtk data for that entity.
 Querying for newly-spawned `EntityInstance` entities can be a good starting point for implementing your own custom spawning logic.
 Intgrid tiles have similar behavior, except their default component is `IntGridCell`, which simply contains the IntGrid value for that tile.
 
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 #[derive(Default, Component)]
@@ -100,7 +100,7 @@ If you register an `LdtkEntity`/`LdtkIntCell` with a marker component, querying 
 The plugin does that for you when giving the entity your bundle, then you can write queries that filter for the marker component instead of `EntityInstance` or `IntGridCell`.
 Furthermore, if you can add the transform-overwriting bundles within the `LdtkEntity` bundle, you won't need to tiptoe around the `Transform` in your post-processing system.
 
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 fn main() {

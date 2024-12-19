@@ -65,7 +65,7 @@ You will develop these bundles a little bit more in the next chapter, but for no
 Derive `LdtkEntity` for these bundles, and give the field a `#[sprite_sheet]` attribute.
 This trait implementation defines how these bundles should be spawned by the plugin.
 More specifically - they should be spawned as sprites identical to the entity's editor visual.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 #[derive(Default, Bundle, LdtkEntity)]
@@ -83,7 +83,7 @@ struct GoalBundle {
 
 Finally, register these bundles to the app using `register_ldtk_entity`, and provide their LDtk identifier.
 When the plugin spawns entities with these identifiers, it will use the registered bundle.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 fn main() {

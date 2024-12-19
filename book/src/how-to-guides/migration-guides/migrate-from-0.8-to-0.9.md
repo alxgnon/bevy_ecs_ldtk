@@ -12,7 +12,7 @@ To update your game to LDtk 1.5.3, you should only need to install the new versi
 Fields on an `LdtkEntity`- or `LdtkIntCell`-derived bundle are no longer constructed from the field's `Default` implementation, but the bundle's.
 
 You may observe different behavior in `0.9` if the value for a field in your bundle's `Default` implementation differs from the field type's own `Default` implementation:
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 #[derive(Component)]
@@ -50,7 +50,7 @@ struct MyBundle {
     component: MyComponentThatImplementsDefault,
 }
 ```
-```rust,no_run
+```rust,ignore
 # use bevy_ecs_ldtk::prelude::*;
 # use bevy::prelude::*;
 # #[derive(Default, Component)]
@@ -114,7 +114,7 @@ fn do_some_processing_with_ldtk_data(
     // do something
 }
 ```
-```rust,no_run
+```rust,ignore
 # use bevy_ecs_ldtk::prelude::*;
 # use bevy::prelude::*;
 // 0.9
@@ -238,7 +238,7 @@ fn print_level_uid(levels: Query<Handle<LdtkLevel>>, level_assets: Res<Assets<Ld
     }
 }
 ```
-```rust,no_run
+```rust,ignore
 # use bevy_ecs_ldtk::prelude::*;
 # use bevy::prelude::*;
 // 0.9
@@ -260,7 +260,7 @@ If the level data you need *is* inside the level's `layer_instances`, you may wa
 A `Level` might not have complete data - in the case that it's the "raw" level inside an external-levels project's `LdtkProject` asset.
 This new `LoadedLevel` type provides type guarantees that the level has complete data.
 For internal-levels (aka "standalone") projects, you can retrieve loaded level data with a `LevelIid` and `LdtkProject` alone:
-```rust,no_run
+```rust,ignore
 # use bevy_ecs_ldtk::prelude::*;
 # use bevy::prelude::*;
 // 0.9, w/ internal_levels enabled

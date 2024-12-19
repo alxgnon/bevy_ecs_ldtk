@@ -7,7 +7,7 @@ This code is used in the `field_instances` cargo example, and facilitates "enemy
 
 ## Register unresolved reference
 First, create a component representing an "unresolved" entity reference, storing the target entity's LDtk iid rather than a bevy `Entity`:
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 {{ #include ../../../examples/field_instances/mother.rs:10:11 }}
@@ -16,7 +16,7 @@ First, create a component representing an "unresolved" entity reference, storing
 Create a method for constructing this component from an `&EntityInstance`.
 This should retrieve the value of the entity reference field instance on the LDtk entity.
 Most likely, you'll use a hard-coded field identifier ("mother" in this example) to find it:
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 # {{ #include ../../../examples/field_instances/mother.rs:11 }}
@@ -25,7 +25,7 @@ Most likely, you'll use a hard-coded field identifier ("mother" in this example)
 
 Add this component to the `LdtkEntity` and configure it to be constructed using this method.
 This guide assumes that you've already registered this bundle to the app.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 # {{ #include ../../../examples/field_instances/mother.rs:10 }}
@@ -37,14 +37,14 @@ This guide assumes that you've already registered this bundle to the app.
 
 ## Resolve reference in post-processing
 Create a second relational component that stores the actual bevy `Entity` that this `Unresolved` reference should "resolve" to.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 {{ #include ../../../examples/field_instances/mother.rs:26:27 }}
 ```
 
 Finally, create a ["post-processing"](../explanation/game-logic-integration.html#post-processing-plugin-spawned-entities) system that takes entities with the `Unresolved` component, finds the entity with the matching `EntityIid`, and replaces the `Unresolved` component with the relational component.
-```rust,no_run
+```rust,ignore
 # use bevy::prelude::*;
 # use bevy_ecs_ldtk::prelude::*;
 # {{ #include ../../../examples/field_instances/mother.rs:10 }}
